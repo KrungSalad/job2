@@ -118,7 +118,7 @@ def mark100m(row):
 
 
 path = "D:/_meowppp/KMITL/intern uni/work job2/" 
-df7 = pd.read_csv(path+'csv/out/road-polyline-id.csv',sep=";")
+df7 = pd.read_csv('C:/Users/Krung/Desktop/INTERN/Job/Job2.1/RoadData/KM_Data/road-polyline-id.csv',sep=";")
 
 n = [(17.0047442902248029,99.8321148371804838), 
      (16.9981560632762552,99.8373569985652125)]
@@ -174,8 +174,21 @@ result = []
 
 df6 = df7.head(1)
 for i in range(0,len(df6)):
-    print(df6.apply(lambda row: mark100m(row), axis=1))
-df = pd.DataFrame(result,columns=header)
-
-distance(tuple([17.0047442902248029,99.8321148371804838]),tuple([16.9981560632762552,99.8373569985652125]))
+    locs = df6.apply(lambda row: mark100m(row), axis=1)
+    print(locs)
+df = pd.DataFrame(columns=header)
+dbiloc = 0
+for i in range(len(locs.iloc[0])):
+    df.loc[dbiloc,"rid"] = locs.iloc[0][i][0]
+    df.loc[dbiloc,"rd"] = locs.iloc[0][i][1]
+    df.loc[dbiloc,"km"] = locs.iloc[0][i][2]
+    df.loc[dbiloc,"ptype"] = locs.iloc[0][i][3]
+    df.loc[dbiloc,"lat"] = locs.iloc[0][i][4]
+    df.loc[dbiloc,"lon"] = locs.iloc[0][i][5]
+    df.loc[dbiloc,"latx"] = locs.iloc[0][i][6]
+    df.loc[dbiloc,"lonx"] = locs.iloc[0][i][7]
+    dbiloc = dbiloc+1
+    
+df.to_csv('test_job_2.2.csv')
+#distance(tuple([17.0047442902248029,99.8321148371804838]),tuple([16.9981560632762552,99.8373569985652125]))
            
